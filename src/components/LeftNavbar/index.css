@@ -1,0 +1,24 @@
+.tabs-container {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.left-nav-contactus-container {
+  padding: 7px;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.left-nav-contact-sites {
+  list-style-type: none;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.left-nav-contact-icons {
+  width: 30px;
+}

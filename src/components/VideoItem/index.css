@@ -1,0 +1,32 @@
+.video-thumbnail-img {
+  width: 100%;
+}
+
+.video-item-content {
+  flex-shrink: 0;
+  display: flex;
+  gap: 7px;
+  padding: 4px;
+
+  @media (min-width: 768px) {
+    max-width: 250px;
+  }
+}
+
+.video-name-views-pusblished-container {
+  @media (max-width: 767px) {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.dot-hide-icon {
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.home-video-views-pusblished-container {
+  display: flex;
+  align-items: center;
+}

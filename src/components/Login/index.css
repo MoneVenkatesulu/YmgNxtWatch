@@ -1,0 +1,36 @@
+.form-website-logo {
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.form-input {
+  border: 1px solid #94a3b8;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.form-checkbox {
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+}
+
+.form-button {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.error-msg {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 0px;
+}

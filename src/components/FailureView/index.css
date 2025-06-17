@@ -1,0 +1,21 @@
+.failure-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.connection-failure-img {
+  width: 200px;
+}
+
+.failure-retry-button {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  width: 100px;
+  margin-top: 15px;
+  cursor: pointer;
+}

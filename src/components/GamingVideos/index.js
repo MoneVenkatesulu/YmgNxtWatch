@@ -84,12 +84,18 @@ class GamingVideos extends Component {
           const renderResponsiveVideos = () => {
             switch (fetchedStatus) {
               case fetchedStatusConstants.inProgress:
-                return <LoadingView />
+                return (
+                  <div className="no-data-views-contianer">
+                    <LoadingView />
+                  </div>
+                )
               case fetchedStatusConstants.failure:
                 return (
-                  <FailureView
-                    onClickFailureRetryButton={this.onClickFailureRetryButton}
-                  />
+                  <div className="no-data-views-contianer">
+                    <FailureView
+                      onClickFailureRetryButton={this.onClickFailureRetryButton}
+                    />
+                  </div>
                 )
               case fetchedStatusConstants.success:
                 return (

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import {withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import Popup from 'reactjs-popup'
 
 import {IoIosSunny, IoMdClose} from 'react-icons/io'
@@ -22,7 +22,7 @@ import './index.css'
 const Header = props => (
   <ThemeContext.Consumer>
     {value => {
-      const {isDarkTheme, changeTheme} = value
+      const {isDarkTheme, changeTheme, changeActiveTabId} = value
 
       let websiteLogoUrl = ''
       if (isDarkTheme) {
@@ -40,9 +40,15 @@ const Header = props => (
         const {history} = props
         history.replace('/login')
       }
+
+      const onClickWebsiteLogo = () => {
+        changeActiveTabId('HOME')
+      }
+
       const renderThemeIcon = () => (
         <button
           type="button"
+          data-testid="theme"
           onClick={onClickThemeIcon}
           className="header-list-buttons"
         >
@@ -102,7 +108,7 @@ const Header = props => (
           {close => (
             <PopContainer isDarkTheme={isDarkTheme}>
               <HeaderPopText isDarkTheme={isDarkTheme}>
-                Are you sure you want to logout?
+                Are you sure, you want to logout
               </HeaderPopText>
               <div className="header-popup-buttons-container">
                 <button
@@ -127,11 +133,14 @@ const Header = props => (
 
       return (
         <HeaderContainer isDarkTheme={isDarkTheme}>
-          <img
-            src={websiteLogoUrl}
-            alt="nxt watch logo"
-            className="header-website-logo"
-          />
+          <Link to="/" onClick={onClickWebsiteLogo}>
+            <img
+              src={websiteLogoUrl}
+              alt="website logo"
+              className="header-website-logo"
+            />
+          </Link>
+
           <ul className="header-list-container">
             <li>{renderThemeIcon()}</li>
             <li>{renderMenuOrProfileIcon()}</li>

@@ -26,3 +26,13 @@ export const FormLabel = Styled.label`
   color: ${props => (props.isDarkTheme ? '#f8fafc' : '#202020')};
   padding-bottom: 3px;
 `
+
+export const LoginButton = Styled.button`
+  color: #ffffff;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+`

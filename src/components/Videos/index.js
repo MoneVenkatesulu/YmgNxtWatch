@@ -1,51 +1,51 @@
 import VideoItem from '../VideoItem'
-import LoadingView from '../LoadingView'
-import FailureView from '../FailureView'
 import ThemeContext from '../../context/ThemeContext'
 
-import VideosContainer from './StyledComponents'
+import {
+  VideosContainer,
+  NoVideosContainer,
+  NoVideosHeading,
+  NoVideosText,
+} from './StyledComponents'
 import './index.css'
 
-const fetchedStatusConstants = {
-  success: 'SUCCESS',
-  failure: 'FAILURE',
-  inProgress: 'IN_PROGRESS',
-}
-
 const Videos = props => {
-  const {videosList, fetchedStatus, onClickFailureRetryButton} = props
+  const {videosList} = props
 
   return (
     <ThemeContext.Consumer>
       {value => {
         const {activeTabId} = value
+        const renderNoVideosView = () => (
+          <NoVideosContainer>
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+              alt="no videos"
+              className="no-videos-img"
+            />
+            <NoVideosHeading>No Search results found</NoVideosHeading>
+            <NoVideosText>
+              Try different key words or remove search filter
+            </NoVideosText>
+            <button type="button" className="no-videos-retry-button">
+              Retry
+            </button>
+          </NoVideosContainer>
+        )
 
-        const renderAllVideos = () => (
-          <VideosContainer isTrending={activeTabId === 'TRENDING'}>
+        return videosList.length === 0 ? (
+          renderNoVideosView()
+        ) : (
+          <VideosContainer
+            isTrending={
+              activeTabId === 'TRENDING' || activeTabId === 'SAVED_VIDEOS'
+            }
+          >
             {videosList.map(eachItem => (
               <VideoItem eachVideo={eachItem} key={eachItem.id} />
             ))}
           </VideosContainer>
         )
-
-        const renderVideosResponsiveSection = () => {
-          switch (fetchedStatus) {
-            case fetchedStatusConstants.success:
-              return renderAllVideos()
-            case fetchedStatusConstants.failure:
-              return (
-                <FailureView
-                  onClickFailureRetryButton={onClickFailureRetryButton}
-                />
-              )
-            case fetchedStatusConstants.inProgress:
-              return <LoadingView />
-            default:
-              return null
-          }
-        }
-
-        return renderVideosResponsiveSection()
       }}
     </ThemeContext.Consumer>
   )

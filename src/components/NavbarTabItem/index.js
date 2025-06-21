@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom'
+
 import ThemeContext from '../../context/ThemeContext'
 
 import {
@@ -14,16 +16,28 @@ const NavbarTabItem = props => {
   const {eachTab, isActive} = props
   const {tabId, displayText} = eachTab
 
-  const renderTabIcons = () => {
+  const getActiveTab = () => {
     switch (tabId) {
       case 'HOME':
-        return <TabHomeIcon isActive={isActive} />
+        return {
+          tabPath: '/',
+          tabIcon: <TabHomeIcon isActive={isActive} />,
+        }
       case 'TRENDING':
-        return <TabFireIcon isActive={isActive} />
+        return {
+          tabPath: '/trending',
+          tabIcon: <TabFireIcon isActive={isActive} />,
+        }
       case 'GAMING':
-        return <TabGamingIcon isActive={isActive} />
+        return {
+          tabPath: '/gaming',
+          tabIcon: <TabGamingIcon isActive={isActive} />,
+        }
       case 'SAVED_VIDEOS':
-        return <TabPlaylistAddIcon isActive={isActive} />
+        return {
+          tabPath: '/saved-videos',
+          tabIcon: <TabPlaylistAddIcon isActive={isActive} />,
+        }
       default:
         return null
     }
@@ -34,22 +48,23 @@ const NavbarTabItem = props => {
       {value => {
         const {isDarkTheme, changeActiveTabId} = value
 
+        const {tabPath, tabIcon} = getActiveTab()
+
         const onClickTabItem = () => {
           changeActiveTabId(tabId)
         }
 
         return (
-          <TabListItem isActive={isActive}>
-            <button
-              type="button"
-              onClick={onClickTabItem}
-              className="tab-item-button"
-            >
-              {renderTabIcons()}
-              <TabItemText isActive={isActive} isDarkTheme={isDarkTheme}>
-                {displayText}
-              </TabItemText>
-            </button>
+          <TabListItem
+            as={Link}
+            to={tabPath}
+            isActive={isActive}
+            onClick={onClickTabItem}
+          >
+            {tabIcon}
+            <TabItemText isActive={isActive} isDarkTheme={isDarkTheme}>
+              {displayText}
+            </TabItemText>
           </TabListItem>
         )
       }}

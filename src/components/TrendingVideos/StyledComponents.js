@@ -1,5 +1,12 @@
 import Styled from 'styled-components'
 
+export const WindowsContainer = Styled.div`
+  background-color: ${props => (props.isDarkTheme ? '#0f0f0f' : '#f9f9f9')};
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`
+
 export const TrendingVideosContainer = Styled.div`
   height: 94vh;
   background-color: ${props => (props.isDarkTheme ? '#000000' : '#ffffff')};

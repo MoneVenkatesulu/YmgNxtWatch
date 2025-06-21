@@ -1,6 +1,6 @@
 import Styled from 'styled-components'
 
-const VideosContainer = Styled.ul`
+export const VideosContainer = Styled.ul`
 list-style-type: none;
   display: flex;
   flex-direction: ${props => (props.isTrending ? 'column' : 'row')};
@@ -14,4 +14,22 @@ list-style-type: none;
   }
 `
 
-export default VideosContainer
+export const NoVideosContainer = Styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+export const NoVideosHeading = Styled.h1`
+  color: ${props => (props.isDarkTheme ? '#cbd5e1' : '#475569')};
+  text-align: center;
+  
+`
+
+export const NoVideosText = Styled.p`
+  color: ${props => (props.isDarkTheme ? '#94a3b8' : '#202020')};
+  text-align: center;
+`

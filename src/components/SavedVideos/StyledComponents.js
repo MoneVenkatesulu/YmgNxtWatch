@@ -7,7 +7,7 @@ export const WindowsContainer = Styled.div`
   height: 100vh;
 `
 
-export const GamingVideosContainer = Styled.div`
+export const SavedVideosContainer = Styled.div`
   height: 94vh;
   background-color: ${props => (props.isDarkTheme ? '#000000' : '#ffffff')};
   display: flex;
@@ -17,7 +17,7 @@ export const GamingVideosContainer = Styled.div`
   }
 `
 
-export const GamingHeadingContainer = Styled.div`
+export const SavedVideosHeadingContainer = Styled.div`
   background-color: ${props => (props.isDarkTheme ? '#181818' : '#f1f5f9')};
   display: flex;
   align-items: center;
@@ -29,6 +29,15 @@ export const GamingHeadingContainer = Styled.div`
   }
 `
 
-export const GamingHeading = Styled.h1`
+export const SavedVideosHeading = Styled.h1`
   color: ${props => (props.isDarkTheme ? '#ffffff' : '#202020')};  
+`
+
+export const NoVideosContainer = Styled.div`
+  color: ${props => (props.isDarkTheme ? '#ffffff' : '#202020')}; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `

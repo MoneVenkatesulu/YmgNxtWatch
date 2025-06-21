@@ -61,7 +61,7 @@ const LeftNavbar = () => (
               </li>
             </ul>
             <ContactUsText isDarkTheme={isDarkTheme}>
-              Enjoy! Now to see your channels and recommendation!
+              Enjoy! Now to see your channels and recommendations!
             </ContactUsText>
           </div>
         </NavbarContainer>

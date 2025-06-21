@@ -5,9 +5,16 @@ import {SiYoutubegaming} from 'react-icons/si'
 import {MdPlaylistAdd} from 'react-icons/md'
 
 export const TabListItem = Styled.li`
+  background-color: ${props => (props.isActive ? '#475569' : 'transparent')};
+  font-size: 18px;
+  text-decoration: none;
+  padding-left: 7px;
   padding-top: 4px;
   padding-bottom: 4px;
-  background-color: ${props => (props.isActive ? '#475569' : 'transparent')};
+
+  @media (max-width: 767px) {
+    width: 100vw;
+  }
 `
 
 export const TabHomeIcon = Styled(IoMdHome)`

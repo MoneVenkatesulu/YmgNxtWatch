@@ -8,8 +8,14 @@ import ThemeContext from '../../context/ThemeContext'
 import Header from '../Header'
 import LeftNavbar from '../LeftNavbar'
 import Videos from '../Videos'
+import LoadingView from '../LoadingView'
+import FailureView from '../FailureView'
 
-import HomeContainer from './StyledComponents'
+import {
+  WindowsContainer,
+  HomeBannerContainer,
+  HomeContainer,
+} from './StyledComponents'
 import './index.css'
 
 const fetchedStatusConstants = {
@@ -89,17 +95,21 @@ class Home extends Component {
       this.setState({showBanner: false})
     }
     return (
-      <div className="home-banner-container">
+      <HomeBannerContainer data-testid="banner">
         <div className="home-banner-logo-container">
           <img
             src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
             alt="nxt watch logo"
             className="home-banner-logo"
           />
-          <IoMdClose
-            className="home-banner-close-icon"
+          <button
+            type="button"
+            data-testid="close"
             onClick={onClickHideBanner}
-          />
+            className="home-banner-close-button"
+          >
+            <IoMdClose />
+          </button>
         </div>
         <p className="home-banner-text">
           Buy Nxt Watch Premium prepaid plans with UPI
@@ -107,12 +117,31 @@ class Home extends Component {
         <button type="button" className="home-banner-button">
           GET IT NOW
         </button>
-      </div>
+      </HomeBannerContainer>
     )
   }
 
+  renderResponsiveVideos = () => {
+    const {fetchedStatus, videosList} = this.state
+
+    switch (fetchedStatus) {
+      case fetchedStatusConstants.inProgress:
+        return <LoadingView />
+      case fetchedStatusConstants.failure:
+        return (
+          <FailureView
+            onClickFailureRetryButton={this.onClickFailureRetryButton}
+          />
+        )
+      case fetchedStatusConstants.success:
+        return <Videos videosList={videosList} />
+      default:
+        return null
+    }
+  }
+
   render() {
-    const {videosList, showBanner, fetchedStatus, userSearch} = this.state
+    const {showBanner, userSearch} = this.state
 
     return (
       <ThemeContext.Consumer>
@@ -120,7 +149,7 @@ class Home extends Component {
           const {isDarkTheme} = value
 
           return (
-            <div className="windows-container">
+            <WindowsContainer data-testid="home" isDarkTheme={isDarkTheme}>
               <Header />
               <HomeContainer isDarkTheme={isDarkTheme}>
                 <div className="navbar-container">
@@ -139,21 +168,17 @@ class Home extends Component {
                     />
                     <button
                       type="button"
+                      data-testid="searchButton"
                       onClick={this.onClickSearchVideo}
                       className="search-icon-button"
                     >
                       <FaSearch />
                     </button>
                   </div>
-
-                  <Videos
-                    videosList={videosList}
-                    fetchedStatus={fetchedStatus}
-                    onClickFailureRetryButton={this.onClickFailureRetryButton}
-                  />
+                  {this.renderResponsiveVideos()}
                 </div>
               </HomeContainer>
-            </div>
+            </WindowsContainer>
           )
         }}
       </ThemeContext.Consumer>

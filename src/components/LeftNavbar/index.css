@@ -1,6 +1,8 @@
 .tabs-container {
   list-style-type: none;
   padding: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .left-nav-contactus-container {

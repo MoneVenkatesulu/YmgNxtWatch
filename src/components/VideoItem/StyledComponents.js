@@ -2,6 +2,7 @@ import Styled from 'styled-components'
 import {BsDot} from 'react-icons/bs'
 
 export const VideoItemContainer = Styled.li`
+  text-decoration: none;
   width: 100%;
   max-width: 300px;
   margin-bottom: 20px;
@@ -22,7 +23,7 @@ export const VideoProfileImg = Styled.img`
   }
 `
 
-export const VideoTitle = Styled.h1`
+export const VideoTitle = Styled.p`
     color: ${props => (props.isDarkTheme ? '#ffffff' : '#202020')};
     font-size: 13px;
     font-weight: 500;

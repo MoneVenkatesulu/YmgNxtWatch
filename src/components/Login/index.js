@@ -4,7 +4,12 @@ import Cookies from 'js-cookie'
 
 import ThemeContext from '../../context/ThemeContext'
 
-import {LoadingContainer, FormContainer, FormLabel} from './StyledComponents'
+import {
+  LoadingContainer,
+  FormContainer,
+  FormLabel,
+  LoginButton,
+} from './StyledComponents'
 
 import './index.css'
 
@@ -75,7 +80,7 @@ class Login extends Component {
               >
                 <img
                   src={formImageUrl}
-                  alt="nxt watch logo"
+                  alt="website logo"
                   className="form-website-logo"
                 />
 
@@ -115,9 +120,7 @@ class Login extends Component {
                   </FormLabel>
                 </div>
 
-                <button type="submit" className="form-button">
-                  Login
-                </button>
+                <LoginButton type="submit">Login</LoginButton>
 
                 {errorMsg !== '' && (
                   <p className="error-msg">{`*${errorMsg}`}</p>

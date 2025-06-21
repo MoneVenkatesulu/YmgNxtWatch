@@ -1,4 +1,4 @@
-import {Switch, Route, withRouter} from 'react-router-dom'
+import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
 import {Component} from 'react'
 
 import ThemeContext from './context/ThemeContext'
@@ -7,6 +7,9 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Home from './components/Home'
 import TrendingVideos from './components/TrendingVideos'
 import GamingVideos from './components/GamingVideos'
+import VideoItemDetails from './components/VideoItemDetails'
+import SavedVideos from './components/SavedVideos'
+import NotFound from './components/NotFound'
 
 import './App.css'
 
@@ -20,67 +23,65 @@ const tabsList = [
 ]
 
 class App extends Component {
-  state = {isDarkTheme: false, activeTabId: tabsList[0].tabId}
-
-  componentDidMount() {
-    const {activeTabId} = this.state
-    this.navigateToTabRoute(activeTabId)
+  state = {
+    savedVideosList: [],
+    isDarkTheme: false,
+    activeTabId: tabsList[0].tabId,
   }
 
   changeTheme = () => {
     this.setState(preState => ({isDarkTheme: !preState.isDarkTheme}))
   }
 
-  navigateToTabRoute = tabId => {
-    const {history} = this.props
+  changeActiveTabId = tabId => {
+    this.setState({activeTabId: tabId})
+  }
 
-    switch (tabId) {
-      case tabsList[0].tabId:
-        history.push('/')
-        break
-      case tabsList[1].tabId:
-        history.push('/videos/trending')
-        break
-      case tabsList[2].tabId:
-        history.push('/videos/gaming')
-        break
-      case tabsList[3].tabId:
-        history.push('/videos/saved')
-        break
-      default:
-        break
+  updateSavedVideosList = videoDetails => {
+    const {savedVideosList} = this.state
+    const isIncludes = savedVideosList.find(
+      eachItem => eachItem.id === videoDetails.id,
+    )
+    if (isIncludes) {
+      this.setState(prevState => ({
+        savedVideosList: prevState.savedVideosList.filter(
+          eachItem => eachItem.id !== videoDetails.id && {...eachItem},
+        ),
+      }))
+    } else {
+      this.setState(preState => ({
+        savedVideosList: [...preState.savedVideosList, videoDetails],
+      }))
     }
   }
 
-  changeActiveTabId = tabId => {
-    this.setState({activeTabId: tabId}, () => this.navigateToTabRoute(tabId))
-  }
-
   render() {
-    const {isDarkTheme, activeTabId} = this.state
+    const {savedVideosList, isDarkTheme, activeTabId} = this.state
 
     return (
       <ThemeContext.Provider
         value={{
           isDarkTheme,
           activeTabId,
+          savedVideosList,
           changeTheme: this.changeTheme,
           changeActiveTabId: this.changeActiveTabId,
+          updateSavedVideosList: this.updateSavedVideosList,
         }}
       >
         <Switch>
           <Route path="/login" component={Login} />
           <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/trending" component={TrendingVideos} />
+          <ProtectedRoute exact path="/gaming" component={GamingVideos} />
+          <ProtectedRoute exact path="/saved-videos" component={SavedVideos} />
           <ProtectedRoute
             exact
-            path="/videos/trending"
-            component={TrendingVideos}
+            path="/videos/:id"
+            component={VideoItemDetails}
           />
-          <ProtectedRoute
-            exact
-            path="/videos/gaming"
-            component={GamingVideos}
-          />
+          <Route exact path="/not-found" component={NotFound} />
+          <Redirect to="/not-found" />
         </Switch>
       </ThemeContext.Provider>
     )

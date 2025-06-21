@@ -7,8 +7,11 @@ import ThemeContext from '../../context/ThemeContext'
 import Header from '../Header'
 import LeftNavbar from '../LeftNavbar'
 import Videos from '../Videos'
+import LoadingView from '../LoadingView'
+import FailureView from '../FailureView'
 
 import {
+  WindowsContainer,
   GamingVideosContainer,
   GamingHeadingContainer,
   GamingHeading,
@@ -71,39 +74,57 @@ class GamingVideos extends Component {
   }
 
   render() {
-    const {videosList, fetchedStatus} = this.state
+    const {fetchedStatus, videosList} = this.state
 
     return (
       <ThemeContext.Consumer>
         {value => {
           const {isDarkTheme} = value
 
+          const renderResponsiveVideos = () => {
+            switch (fetchedStatus) {
+              case fetchedStatusConstants.inProgress:
+                return <LoadingView />
+              case fetchedStatusConstants.failure:
+                return (
+                  <FailureView
+                    onClickFailureRetryButton={this.onClickFailureRetryButton}
+                  />
+                )
+              case fetchedStatusConstants.success:
+                return (
+                  <div className="gaming-videos-content">
+                    <GamingHeadingContainer
+                      data-testid="banner"
+                      isDarkTheme={isDarkTheme}
+                    >
+                      <div className="gaming-fire-icon-container">
+                        <SiYoutubegaming className="gaming-fire-icon" />
+                      </div>
+                      <GamingHeading isDarkTheme={isDarkTheme}>
+                        Gaming
+                      </GamingHeading>
+                    </GamingHeadingContainer>
+                    <div className="gaming-videos-list">
+                      <Videos videosList={videosList} />
+                    </div>
+                  </div>
+                )
+              default:
+                return null
+            }
+          }
+
           return (
-            <div className="windows-container">
+            <WindowsContainer data-testid="gaming" isDarkTheme={isDarkTheme}>
               <Header />
               <GamingVideosContainer isDarkTheme={isDarkTheme}>
                 <div className="navbar-container">
                   <LeftNavbar />
                 </div>
-                <div className="gaming-videos-content">
-                  <GamingHeadingContainer isDarkTheme={isDarkTheme}>
-                    <div className="gaming-fire-icon-container">
-                      <SiYoutubegaming className="gaming-fire-icon" />
-                    </div>
-                    <GamingHeading isDarkTheme={isDarkTheme}>
-                      Gaming
-                    </GamingHeading>
-                  </GamingHeadingContainer>
-                  <div className="gaming-videos-list">
-                    <Videos
-                      videosList={videosList}
-                      fetchedStatus={fetchedStatus}
-                      onClickFailureRetryButton={this.onClickFailureRetryButton}
-                    />
-                  </div>
-                </div>
+                {renderResponsiveVideos()}
               </GamingVideosContainer>
-            </div>
+            </WindowsContainer>
           )
         }}
       </ThemeContext.Consumer>

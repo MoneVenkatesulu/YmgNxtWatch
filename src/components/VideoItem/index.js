@@ -1,3 +1,5 @@
+import {Link, withRouter} from 'react-router-dom'
+
 import {formatDistanceToNow} from 'date-fns'
 
 import ThemeContext from '../../context/ThemeContext'
@@ -18,7 +20,7 @@ const VideoItem = props => {
   return (
     <ThemeContext.Consumer>
       {value => {
-        const {isDarkTheme, activeTabId} = value
+        const {isDarkTheme, activeTabId, changeActiveTabId} = value
 
         let publishedDate
         let formatedPublished
@@ -27,25 +29,40 @@ const VideoItem = props => {
           formatedPublished = formatDistanceToNow(publishedDate)
         }
 
+        const onClickVideo = () => {
+          changeActiveTabId('')
+        }
+
         return (
-          <VideoItemContainer isTrending={activeTabId === 'TRENDING'}>
+          <VideoItemContainer
+            as={Link}
+            to={`/videos/${id}`}
+            onClick={onClickVideo}
+            isTrending={
+              activeTabId === 'TRENDING' || activeTabId === 'SAVED_VIDEOS'
+            }
+          >
             <img
               src={thumbnailUrl}
-              alt={title}
+              alt="video thumbnail"
               className="video-thumbnail-img"
             />
             <div className="video-item-content">
               {channel !== undefined && (
                 <VideoProfileImg
                   src={channel.profileImageUrl}
-                  alt={channel.name}
-                  isTrending={activeTabId === 'TRENDING'}
+                  alt="channel logo"
+                  isTrending={
+                    activeTabId === 'TRENDING' || activeTabId === 'SAVED_VIDEOS'
+                  }
                 />
               )}
               <div className="home-video-descrition">
                 <VideoTitle
                   isDarkTheme={isDarkTheme}
-                  isTrending={activeTabId === 'TRENDING'}
+                  isTrending={
+                    activeTabId === 'TRENDING' || activeTabId === 'SAVED_VIDEOS'
+                  }
                 >
                   {title}
                 </VideoTitle>
@@ -79,7 +96,7 @@ const VideoItem = props => {
                     )}
 
                     <VideoDescription isDarkTheme={isDarkTheme}>
-                      {formatedPublished}
+                      {`${publishedAt}|${formatedPublished}`}
                     </VideoDescription>
                   </div>
                 </div>
@@ -92,4 +109,4 @@ const VideoItem = props => {
   )
 }
 
-export default VideoItem
+export default withRouter(VideoItem)

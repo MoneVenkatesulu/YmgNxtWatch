@@ -14,7 +14,7 @@ export const NavbarContainer = Styled.nav`
   }
 `
 
-export const ContactUsHeading = Styled.div`
+export const ContactUsHeading = Styled.p`
   color: ${props => (props.isDarkTheme ? '#f9f9f9' : '#202020')};
 `
 

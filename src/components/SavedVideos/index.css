@@ -8,7 +8,7 @@
   }
 }
 
-.trending-videos-content {
+.saved-videos-content {
   overflow: auto;
   width: 80vw;
 
@@ -17,7 +17,7 @@
   }
 }
 
-.trending-fire-icon-container {
+.saved-videos-fire-icon-container {
   background-color: #e2e8f0;
   height: 55px;
   width: 55px;
@@ -27,15 +27,19 @@
   align-items: center;
 }
 
-.trending-fire-icon {
+.saved-videos-fire-icon {
   color: #ff0b37;
   font-size: 30px;
 }
 
-.trending-videos-list {
+.saved-videos-list {
   padding-left: 30px;
 
   @media (max-width: 767px) {
     padding-left: 15px;
   }
+}
+
+.no-videos-img {
+  width: 30%;
 }

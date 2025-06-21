@@ -28,6 +28,8 @@ export const HeaderLogoutButton = Styled.button`
     height: 30px;
     width: 80px;
   }
+
+  
 `
 
 export const PopContainer = Styled.div`

@@ -108,6 +108,13 @@ class Login extends Component {
                   value={password}
                 />
 
+                <details className="user-credentials">
+                  <summary>User credentials</summary>
+                  <span>&nbsp;&nbsp;&nbsp; username : rahul</span>
+                  <br />
+                  <span>&nbsp;&nbsp;&nbsp; password : rahul@2021</span>
+                </details>
+
                 <div>
                   <input
                     type="checkbox"

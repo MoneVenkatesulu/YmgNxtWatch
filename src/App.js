@@ -29,6 +29,10 @@ class App extends Component {
     activeTabId: tabsList[0].tabId,
   }
 
+  componentDidMount() {
+    document.title = 'NxtWatch-App'
+  }
+
   changeTheme = () => {
     this.setState(preState => ({isDarkTheme: !preState.isDarkTheme}))
   }

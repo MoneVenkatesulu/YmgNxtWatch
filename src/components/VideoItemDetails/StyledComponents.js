@@ -31,6 +31,11 @@ export const ViewsPublishLikesSavedContainer = Styled.div`
   color: ${props => (props.isDarkTheme ? '#e2e8f0' : '#94a3b8')};
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 375px) {
+    display: flex;
+    flex-direction: column;
+  }
   
 `
 

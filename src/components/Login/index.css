@@ -13,6 +13,10 @@
   outline: none;
 }
 
+.user-credentials {
+  margin-bottom: 20px;
+}
+
 .form-checkbox {
   width: 17px;
   height: 17px;
